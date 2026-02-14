@@ -1,0 +1,74 @@
+"""Configuration files for force control system."""
+
+# Controller configurations
+controllers:
+  pid:
+    kp: 0.1
+    ki: 0.05
+    kd: 0.01
+    integral_limit: 1.0
+    max_force: 10.0
+    
+  impedance:
+    stiffness: 100.0
+    damping: 20.0
+    mass: 1.0
+    max_force: 10.0
+    
+  hybrid:
+    position_gains: 100.0
+    force_gains: 0.1
+    force_directions: [false, true]  # [x, y] - y is force controlled
+    max_force: 10.0
+
+# Simulation configuration
+simulation:
+  dt: 0.01
+  gravity: -9.81
+  time_step: 0.004166  # 1/240 Hz
+  max_force: 10.0
+  max_velocity: 1.0
+  enable_gui: true
+  enable_realtime: false
+  duration: 10.0
+
+# Robot configuration
+robot:
+  urdf_path: "robots/urdf/simple_arm.urdf"
+  base_position: [0, 0, 0]
+  base_orientation: [0, 0, 0, 1]
+  joint_damping: 0.1
+  joint_friction: 0.1
+
+# Evaluation configuration
+evaluation:
+  settling_threshold: 0.05
+  overshoot_threshold: 0.1
+  force_limit: 10.0
+  velocity_limit: 1.0
+  metrics:
+    - force_rmse
+    - force_mae
+    - force_overshoot
+    - force_settling_time
+    - control_effort
+    - control_smoothness
+    - energy_consumption
+
+# Visualization configuration
+visualization:
+  style: "seaborn-v0_8"
+  fig_size: [12, 8]
+  save_plots: true
+  plot_format: "png"
+  dpi: 300
+  show_plots: true
+
+# Safety configuration
+safety:
+  emergency_stop_enabled: true
+  force_limit: 10.0
+  velocity_limit: 1.0
+  acceleration_limit: 5.0
+  jerk_limit: 10.0
+  watchdog_timeout: 1.0
